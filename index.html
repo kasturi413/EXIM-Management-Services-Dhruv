@@ -426,6 +426,10 @@
     body.append(ENTRY.email,   email);
     body.append(ENTRY.phone,   code + phone);
 
+    body.append("fvv", "1");
+    body.append("pageHistory", "0");
+    body.append("fbzx", Math.random().toString());
+
     try {
       await fetch(FORM_ACTION, {
         method: 'POST',
