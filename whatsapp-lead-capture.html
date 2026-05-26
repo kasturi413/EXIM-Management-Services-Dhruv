@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connect With Us</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Satoshi:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #25D366;
+    --bg: #0a0f0d;
+    --surface: #111a15;
+    --surface2: #162019;
+    --border: rgba(37,211,102,0.15);
+    --text: #e8f5e3;
+    --muted: #7a9e85;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Satoshi', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 20% 20%, rgba(37,211,102,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 80% 80%, rgba(18,140,126,0.06) 0%, transparent 60%);
+    pointer-events: none; z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: linear-gradient(rgba(37,211,102,0.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(37,211,102,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none; z-index: 0;
+  }
+
+  .container {
+    position: relative; z-index: 1;
+    width: 100%; max-width: 480px;
+    padding: 24px 20px;
+  }
+
+  .header {
+    text-align: center; margin-bottom: 40px;
+    animation: fadeDown 0.6s ease both;
+  }
+
+  .brand-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(37,211,102,0.1);
+    border: 1px solid var(--border);
+    border-radius: 100px; padding: 6px 16px;
+    font-size: 12px; font-weight: 500; color: var(--green);
+    letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 20px;
+  }
+
+  .brand-badge .dot {
+    width: 6px; height: 6px; background: var(--green);
+    border-radius: 50%; animation: pulse 2s infinite;
+  }
+
+  .company-name {
+    font-family: 'Clash Display', sans-serif;
+    font-size: clamp(28px, 7vw, 42px);
+    font-weight: 700; line-height: 1.1; letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #e8f5e3 0%, #25D366 50%, #128C7E 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; margin-bottom: 10px;
+  }
+
+  .tagline { color: var(--muted); font-size: 15px; line-height: 1.5; }
+
+  /* Social links */
+  .social-links {
+    display: flex; align-items: center; justify-content: center;
+    gap: 12px; margin-top: 18px; flex-wrap: wrap;
+  }
+
+  .social-btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 8px 16px; border-radius: 100px;
+    font-size: 13px; font-weight: 500; text-decoration: none;
+    border: 1px solid var(--border); color: var(--muted);
+    transition: all 0.2s; background: rgba(255,255,255,0.03);
+  }
+
+  .social-btn:hover { color: var(--text); border-color: rgba(37,211,102,0.4); background: rgba(37,211,102,0.07); }
+
+  .social-btn svg { flex-shrink: 0; }
+
+  .social-btn.linkedin:hover { color: #0A66C2; border-color: rgba(10,102,194,0.4); background: rgba(10,102,194,0.08); }
+  .social-btn.website:hover  { color: var(--green); border-color: rgba(37,211,102,0.4); background: rgba(37,211,102,0.07); }
+
+  /* Card */
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; padding: 32px 28px;
+    animation: fadeUp 0.6s ease 0.1s both;
+    position: relative; overflow: hidden;
+  }
+
+  .card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(37,211,102,0.5), transparent);
+  }
+
+  .card-title { font-family: 'Clash Display', sans-serif; font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+  .card-sub { font-size: 13px; color: var(--muted); margin-bottom: 28px; line-height: 1.5; }
+
+  .field { margin-bottom: 18px; }
+
+  label {
+    display: block; font-size: 12px; font-weight: 600;
+    letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 8px;
+  }
+
+  input, select {
+    width: 100%; background: var(--surface2);
+    border: 1px solid var(--border); border-radius: 12px;
+    padding: 14px 16px; font-family: 'Satoshi', sans-serif;
+    font-size: 15px; color: var(--text); outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+  }
+
+  input::placeholder { color: rgba(122,158,133,0.5); }
+
+  input:focus, select:focus {
+    border-color: rgba(37,211,102,0.5);
+    box-shadow: 0 0 0 3px rgba(37,211,102,0.08);
+  }
+
+  .phone-wrap { display: flex; gap: 10px; }
+
+  .country-code {
+    flex-shrink: 0; width: auto; cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%237a9e85' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px;
+  }
+
+  .phone-input { flex: 1; }
+
+  .submit-btn {
+    width: 100%; background: var(--green); color: #0a0f0d;
+    border: none; border-radius: 12px; padding: 16px;
+    font-family: 'Clash Display', sans-serif; font-size: 16px; font-weight: 600;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    gap: 10px; margin-top: 24px;
+    transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
+  }
+
+  .submit-btn:hover { background: #20c05e; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(37,211,102,0.3); }
+  .submit-btn:active { transform: translateY(0); }
+  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+  .spinner {
+    width: 18px; height: 18px;
+    border: 2px solid rgba(0,0,0,0.2); border-top-color: #0a0f0d;
+    border-radius: 50%; animation: spin 0.7s linear infinite; display: none;
+  }
+
+  /* Success */
+  .success-card { display: none; text-align: center; padding: 20px 0; }
+
+  .success-icon {
+    width: 64px; height: 64px;
+    background: rgba(37,211,102,0.15); border: 1px solid rgba(37,211,102,0.3);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  .success-title { font-family: 'Clash Display', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .success-sub { color: var(--muted); font-size: 14px; line-height: 1.6; margin-bottom: 24px; }
+
+  .whatsapp-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--green); color: #0a0f0d; text-decoration: none;
+    border-radius: 12px; padding: 14px 28px;
+    font-family: 'Clash Display', sans-serif; font-size: 15px; font-weight: 600;
+    transition: transform 0.15s, box-shadow 0.2s;
+  }
+
+  .whatsapp-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(37,211,102,0.3); }
+
+  .footer {
+    text-align: center; margin-top: 28px;
+    color: var(--muted); font-size: 12px; opacity: 0.5;
+    animation: fadeUp 0.6s ease 0.3s both;
+  }
+
+  @keyframes fadeDown { from { opacity:0; transform:translateY(-16px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes fadeUp   { from { opacity:0; transform:translateY(16px);  } to { opacity:1; transform:translateY(0); } }
+  @keyframes pulse    { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.5; transform:scale(0.8); } }
+  @keyframes scaleIn  { from { opacity:0; transform:scale(0.5); } to { opacity:1; transform:scale(1); } }
+  @keyframes spin     { to { transform:rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="brand-badge"><span class="dot"></span>Connect With Us</div>
+    <div class="company-name">EXIM Management Services</div>
+    <div class="tagline">Let's stay connected — drop your details<br>and we'll reach out via WhatsApp!</div>
+
+    <!-- Social Links -->
+    <div class="social-links">
+      <a href="YOUR_WEBSITE_URL" target="_blank" class="social-btn website">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+        </svg>
+        Visit Website
+      </a>
+      <a href="YOUR_LINKEDIN_URL" target="_blank" class="social-btn linkedin">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/>
+        </svg>
+        LinkedIn
+      </a>
+      <a href="https://wa.me/919876543210" target="_blank" class="social-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <!-- Form Card -->
+  <div class="card">
+    <div id="formContent">
+      <div class="card-title">Quick Connect 👋</div>
+      <div class="card-sub">Takes 30 seconds. We'll be in touch soon.</div>
+
+      <div class="field">
+        <label>Full Name</label>
+        <input type="text" id="nameInput" placeholder="e.g. Priya Sharma" autocomplete="name">
+      </div>
+
+      <div class="field">
+        <label>Company Name</label>
+        <input type="text" id="companyInput" placeholder="e.g. Acme Exports Pvt. Ltd.">
+      </div>
+
+      <div class="field">
+        <label>Email Address</label>
+        <input type="email" id="emailInput" placeholder="e.g. priya@company.com" autocomplete="email">
+      </div>
+
+      <div class="field">
+        <label>WhatsApp Number</label>
+        <div class="phone-wrap">
+          <select class="country-code" id="countryCode">
+            <option value="+91">🇮🇳 +91</option>
+            <option value="+1">🇺🇸 +1</option>
+            <option value="+44">🇬🇧 +44</option>
+            <option value="+971">🇦🇪 +971</option>
+            <option value="+65">🇸🇬 +65</option>
+            <option value="+61">🇦🇺 +61</option>
+            <option value="+49">🇩🇪 +49</option>
+            <option value="+33">🇫🇷 +33</option>
+            <option value="+86">🇨🇳 +86</option>
+            <option value="+81">🇯🇵 +81</option>
+          </select>
+          <input type="tel" id="phoneInput" class="phone-input" placeholder="98765 43210" autocomplete="tel">
+        </div>
+      </div>
+
+      <button class="submit-btn" id="submitBtn" onclick="handleSubmit()">
+        <div class="spinner" id="spinner"></div>
+        <svg id="btnIcon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        <span id="btnText">Connect on WhatsApp</span>
+      </button>
+    </div>
+
+    <!-- Success -->
+    <div class="success-card" id="successCard">
+      <div class="success-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#25D366" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
+      <div class="success-title">You're all set! 🎉</div>
+      <div class="success-sub" id="successMsg">Thanks! We've saved your details and will be in touch soon.</div>
+      <a href="#" id="waLink" class="whatsapp-btn" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Open WhatsApp Chat
+      </a>
+    </div>
+  </div>
+
+  <div class="footer">© 2025 All rights reserved.</div>
+
+</div>
+
+<!-- Hidden iframe for Google Form submission (the correct method) -->
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+<form id="gform" target="hidden_iframe" method="POST"
+  action="https://docs.google.com/forms/d/e/1FAIpQLSc-EEUKjHo24VqtL395MbHJViPOR_bQm77w2sLKDd6wbF8LCg/formResponse">
+  <input type="hidden" name="entry.772908963" id="g_name">
+  <input type="hidden" name="entry.672096479" id="g_company">
+  <input type="hidden" name="entry.1954965577" id="g_email">
+  <input type="hidden" name="entry.51648064" id="g_phone">
+</form>
+
+<script>
+  // ── CONFIG — update these 3 values ──
+  const WHATSAPP_NUMBER  = "919876543210";       // ← your number, country code + number, no +
+  const WHATSAPP_MESSAGE = "Hi! I just scanned your QR code and would love to connect 👋";
+  // ─────────────────────────────────────
+
+  function handleSubmit() {
+    const name    = document.getElementById('nameInput').value.trim();
+    const company = document.getElementById('companyInput').value.trim();
+    const email   = document.getElementById('emailInput').value.trim();
+    const code    = document.getElementById('countryCode').value;
+    const phone   = document.getElementById('phoneInput').value.trim().replace(/\D/g,'');
+
+    if (!name)                          { shake('nameInput');    return; }
+    if (!company)                       { shake('companyInput'); return; }
+    if (!email || !email.includes('@')) { shake('emailInput');   return; }
+    if (!phone || phone.length < 7)     { shake('phoneInput');   return; }
+
+    // Show loading
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    document.getElementById('spinner').style.display = 'block';
+    document.getElementById('btnIcon').style.display = 'none';
+    document.getElementById('btnText').textContent = 'Submitting...';
+
+    // Fill hidden form and submit to Google via iframe
+    document.getElementById('g_name').value    = name;
+    document.getElementById('g_company').value = company;
+    document.getElementById('g_email').value   = email;
+    document.getElementById('g_phone').value   = code + phone;
+    document.getElementById('gform').submit();
+
+    // Show success after short delay
+    setTimeout(() => {
+      document.getElementById('formContent').style.display = 'none';
+      document.getElementById('successCard').style.display = 'block';
+      document.getElementById('successMsg').innerHTML =
+        `Thanks, <strong>${name}</strong>! Your details have been saved.<br>Tap below to say hi on WhatsApp 👇`;
+
+      const waMsg = encodeURIComponent(WHATSAPP_MESSAGE);
+      const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${waMsg}`;
+      document.getElementById('waLink').href = waUrl;
+
+      setTimeout(() => window.open(waUrl, '_blank'), 1000);
+    }, 800);
+  }
+
+  function shake(id) {
+    const el = document.getElementById(id);
+    el.style.borderColor = 'rgba(255,80,80,0.6)';
+    el.style.boxShadow = '0 0 0 3px rgba(255,80,80,0.1)';
+    setTimeout(() => { el.style.borderColor = ''; el.style.boxShadow = ''; }, 1200);
+    el.focus();
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && document.getElementById('formContent').style.display !== 'none') {
+      handleSubmit();
+    }
+  });
+</script>
+</body>
+</html>
