@@ -431,14 +431,19 @@
   form.target = "hidden_iframe";
 
   form.innerHTML = `
-    <input name="${ENTRY.name}" value="${name}">
-    <input name="${ENTRY.company}" value="${company}">
-    <input name="${ENTRY.email}" value="${email}">
-    <input name="${ENTRY.phone}" value="${code + phone}">
-  `;
+  <input name="${ENTRY.name}" value="${name}">
+  <input name="${ENTRY.company}" value="${company}">
+  <input name="${ENTRY.email}" value="${email}">
+  <input name="${ENTRY.phone}" value="${code + phone}">
+  <input name="fvv" value="1">
+  <input name="pageHistory" value="0">
+  <input name="fbzx" value="${Date.now()}">
+`;
 
-  document.body.appendChild(form);
-  form.submit();
+  // SMALL delay helps ensure DOM is ready
+  setTimeout(() => {
+    form.submit();
+  }, 100);
 
     // Show success screen
     document.getElementById('formContent').style.display = 'none';
